@@ -17,13 +17,18 @@ let Root = React.createClass({
                 }).jPlayer('play');
             },
             supplied: 'mp3',
-            wmode: 'window'
-        });
+            wmode: 'window',
+            volume: '.01'
+        },
+    );
         $('#player').bind($.jPlayer.event.timeupdate,(e)=>{
             this.setState({
-                progress: Math.round(e.jPlayer.status.currentTime)
+                progress: e.jPlayer.status.currentPercentAbsolute
             });
         });
+    },
+    componentWillUnmount(){
+        $('#jPlayer').unbind($.jPlayer.event.timeupdate);
     },
 
     render(){
